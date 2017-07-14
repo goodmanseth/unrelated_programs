@@ -47,6 +47,7 @@ int main(int argc, char **argv) {
     //        time_taken);
 }
 
+// displays an icon to show that the program is running
 void loading_icon(){
     static int state = 0;
     char cursor[4] = {'|','/','-','\\'};
@@ -55,10 +56,12 @@ void loading_icon(){
     state = (state+1) % 4;
 }
 
+// returns the minimum value between a and b
 int min(int a, int b) {
     return (a < b) ? a : b;
 }
 
+// returns the greatest common denominator of a and b
 int gcd(int a, int b) {
     if (!b) return a;
     return gcd(b,a%b);
