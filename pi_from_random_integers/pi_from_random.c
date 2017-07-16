@@ -38,8 +38,8 @@ int main(int argc, char **argv) {
         if (i % 500000 == 0)
             loading_icon();
     }
-    float coprime_percentage = (float) coprime / (float) num;
-    float pi = sqrt(6.0/coprime_percentage);
+    double coprime_percentage = (double) coprime / (double) num;
+    double pi = sqrt(6.0/coprime_percentage);
     printf("The approximate value of pi is: %f\n",pi);
     //t = clock() - t;
     //double time_taken = ((double)t)/CLOCKS_PER_SEC;
