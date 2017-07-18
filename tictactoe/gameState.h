@@ -17,7 +17,7 @@ class Game {
 
         void startGame();
         
-//        void printBoard();
+        void printBoard();
 
 //        void getHumanMove();
 
@@ -32,4 +32,4 @@ class Game {
 //        bool checkWinner(Player player);
 
 
-
+};
