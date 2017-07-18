@@ -1,13 +1,8 @@
 #include <iostream>
 
 using namespace std;
-
 enum Player {HUMAN,AI};
 
-struct Move {
-    int x;
-    int y;
-};
 
 class Game {
     char board[3][3];

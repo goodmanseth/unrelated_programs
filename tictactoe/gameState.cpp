@@ -13,8 +13,6 @@ Game::Game() {
     }
 }
 
-
-
 void Game::startGame() {
     printBoard();
     while(true) {
