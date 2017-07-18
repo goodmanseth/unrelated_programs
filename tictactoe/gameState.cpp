@@ -15,7 +15,7 @@ Game::Game() {
 
 void Game::startGame() {
     printBoard();
-    while(true) {
+    while(!checkWinner(HUMAN) && !checkWinner(AI)) {
         getMove();
         printBoard();
     }
@@ -66,4 +66,26 @@ void Game::getMove() {
             cout << "Invalid move. Please try again." << endl;
         }
     }
+}
+
+bool Game::checkWinner(Player player) {
+    char XO;
+    if (player == HUMAN) XO = 'X';
+    else XO = 'O';
+
+    // checking across and vertical
+    for(int i=0; i<3; i++) {
+        if (board[i][0] == XO && board[i][1] == XO && board[i][2] == XO)
+            return true;
+        else if (board[0][i] == XO && board[1][i] == XO && board[2][i] == XO)
+            return true;
+    }
+
+    // diagonals
+    if (board[0][0] == XO && board[1][1] == XO && board[2][2] == XO)
+        return true;
+    else if (board[0][2] == XO && board[1][1] == XO && board[2][0] == XO)
+        return true;
+
+        return false;
 }

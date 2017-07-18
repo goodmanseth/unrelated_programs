@@ -24,7 +24,6 @@ class Game {
 
 //        bool gameOver();
 
-//        bool checkWinner(Player player);
-
+        bool checkWinner(Player player);
 
 };
