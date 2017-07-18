@@ -8,7 +8,7 @@ using namespace std;
 Game::Game() {
     for(int i=0; i<3; i++) {
         for(int j=0; j<3; j++) {
-            board[i][j] = (i+1)*(j+1) + '0';
+            board[i][j] = 3*i + (j+1) + '0';
         }
     }
 }
@@ -17,6 +17,10 @@ Game::Game() {
 
 void Game::startGame() {
     printBoard();
+    while(true) {
+        getMove();
+        printBoard();
+    }
 }
 
 void Game::printBoard() {
@@ -26,30 +30,34 @@ void Game::printBoard() {
     cout << endl;
 
     cout << "     |     |     " << endl;
-    cout << "  " << "1" << "  |  " << "2" << "  |  " << "3" << endl;
+    cout << "  " << board[0][0] << "  |  " << board[0][1] << "  |  " << board[0][2] << endl;
     
     cout << "_____|_____|_____" << endl;
     cout << "     |     |     " << endl;
     
-    cout << "  " << "4" << "  |  " << "5" << "  |  " << "6" << endl;
+    cout << "  " << board[1][0] << "  |  " << board[1][1] << "  |  " << board[1][2] << endl;
     
     cout << "_____|_____|_____" << endl;
     cout << "     |     |     " << endl;
 
-    cout << "  " << "7" << "  |  " << "8" << "  |  " << "9" << endl;
+    cout << "  " << board[2][0] << "  |  " << board[2][1] << "  |  " << board[2][2] << endl;
     cout << "     |     |     " << endl << endl;
 }
 
 void Game::getMove() {
     bool valid = false;
     cout << "Please enter the number corresponding to a location on the board." << endl;
-    char move;
+    string move;
     while(!valid) {
         cout << "Your move: ";
         cin >> move;
+        if (move.length() != 1) {
+            cout << "Invalid move. Please try again." << endl;
+            continue;
+        }
         for(int i=0; i<3 && !valid; i++) {
             for(int j=0; j<3; j++) {
-                if (board[i][j] == move) {
+                if (board[i][j] == move[0]) {
                     valid = true;
                     board[i][j] = 'X';
                     break;
