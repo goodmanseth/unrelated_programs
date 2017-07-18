@@ -39,3 +39,25 @@ void Game::printBoard() {
     cout << "  " << "7" << "  |  " << "8" << "  |  " << "9" << endl;
     cout << "     |     |     " << endl << endl;
 }
+
+void Game::getMove() {
+    bool valid = false;
+    cout << "Please enter the number corresponding to a location on the board." << endl;
+    char move;
+    while(!valid) {
+        cout << "Your move: ";
+        cin >> move;
+        for(int i=0; i<3 && !valid; i++) {
+            for(int j=0; j<3; j++) {
+                if (board[i][j] == move) {
+                    valid = true;
+                    board[i][j] = 'X';
+                    break;
+                }
+            }
+        }
+        if (!valid) {
+            cout << "Invalid move. Please try again." << endl;
+        }
+    }
+}

@@ -19,7 +19,7 @@ class Game {
         
         void printBoard();
 
-//        void getHumanMove();
+        void getMove();
 
 //        Move minimax(char aiBoard[3][3]);
 
