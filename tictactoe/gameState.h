@@ -17,19 +17,19 @@ class Game {
 
         void startGame();
         
-        void printBoard();
+//        void printBoard();
 
-        void getHumanMove();
+//        void getHumanMove();
 
-        Move minimax(char aiBoard[3][3]);
+//        Move minimax(char aiBoard[3][3]);
 
-        int minSearch(char aiBoard[3][3]);
+//        int minSearch(char aiBoard[3][3]);
         
-        int score();
+//        int score();
 
-        bool gameOver();
+//        bool gameOver();
 
-        bool checkWinner(Player player);
+//        bool checkWinner(Player player);
 
 
 
