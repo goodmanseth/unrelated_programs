@@ -18,6 +18,8 @@ class Game {
 
 //        Move minimax(char aiBoard[3][3]);
 
+//        int maxSearch(char aiBoard[3][3]));
+
 //        int minSearch(char aiBoard[3][3]);
         
 //        int score();
