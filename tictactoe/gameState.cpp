@@ -33,17 +33,33 @@ void Game::playGame() {
 
     while(!checkWinner(PLAYER1) && !checkWinner(PLAYER2) && !gameOver()) {
         if (turn%2 == 0) {
-            getMove(PLAYER1);
-            printBoard();
-            if (checkWinner(PLAYER1)) cout << player1 << " Wins!" << endl << endl;
-            turn++;
+            if (numPlayers == 0) {
+                minimax(board);
+                cout << player1 << "'s turn:" << endl;
+                this_thread::sleep_for(timespan);
+                printBoard();
+                if (checkWinner(PLAYER1)) cout << player1 << " Wins!" << endl << endl;
+                turn++;
+            } else {
+                getMove(PLAYER1);
+                printBoard();
+                if (checkWinner(PLAYER1)) cout << player1 << " Wins!" << endl << endl;
+                turn++;
+            }
         } else {
-            minimax(board);
-            cout << player2 << "'s turn:" << endl;
-            this_thread::sleep_for(timespan);
-            printBoard();
-            if (checkWinner(PLAYER2)) cout << player2 << " Wins!" << endl << endl;
-            turn++;
+            if (numPlayers == 2) {
+                getMove(PLAYER2);
+                printBoard();
+                if (checkWinner(PLAYER2)) cout << player2 << " Wins!" << endl << endl;
+                turn++;
+            } else {
+                minimax(board);
+                cout << player2 << "'s turn:" << endl;
+                this_thread::sleep_for(timespan);
+                printBoard();
+                if (checkWinner(PLAYER2)) cout << player2 << " Wins!" << endl << endl;
+                turn++;
+            }
         }
     }
 
@@ -104,7 +120,7 @@ char Game::xOrO(Player player, bool trueFalse) {
     return ((player == PLAYER1) ? 'X' : 'O');
 }
 
-void Game::minimax(char aiBoard[3][3]) {
+void Game::minimax(char aiBoard[3][3], Player player) {
     int bestScore = 100;
     Move aiMove;
 
@@ -126,7 +142,7 @@ void Game::minimax(char aiBoard[3][3]) {
     board[aiMove.a][aiMove.b] = 'O';
 }
 
-int Game::maxScore(char aiBoard[3][3]) {
+int Game::maxScore(char aiBoard[3][3], Player player) {
     if (gameOver()) return score();
     int bestScore = -1000; // arbitrary so the first move will change it
     Move bestMove;
@@ -151,7 +167,7 @@ int Game::maxScore(char aiBoard[3][3]) {
 }
 
 
-int Game::minScore(char aiBoard[3][3]) {
+int Game::minScore(char aiBoard[3][3], Player player) {
     if (gameOver()) return score();
     int bestScore = 1000; // arbitrary so the first move will change it
     Move bestMove;

@@ -27,11 +27,11 @@ class Game {
 
         char xOrO(Player player, bool trueFalse);
 
-        void minimax(char aiBoard[3][3]);
+        void minimax(char aiBoard[3][3], Player player);
 
-        int maxScore(char aiBoard[3][3]);
+        int maxScore(char aiBoard[3][3], Player player);
 
-        int minScore(char aiBoard[3][3]);
+        int minScore(char aiBoard[3][3], Player player);
 
         int score();
 
