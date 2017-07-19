@@ -15,7 +15,7 @@ Game::Game() {
 
 void Game::startGame() {
     printBoard();
-    while(!checkWinner(HUMAN) && !checkWinner(AI)) {
+    while(!checkWinner(HUMAN) && !checkWinner(AI) && !gameOver()) {
         getMove();
         printBoard();
     }
@@ -74,7 +74,7 @@ int Game::score() {
     else return 0;
 }
 
-void Game::gameOver() {
+bool Game::gameOver() {
     if (checkWinner(HUMAN)) return true;
     else if (checkWinner(AI)) return true;
 
