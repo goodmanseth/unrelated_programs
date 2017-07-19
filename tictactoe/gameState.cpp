@@ -199,7 +199,7 @@ int Game::score() {
     if (checkWinner(PLAYER1)) return 10;
     else if (checkWinner(PLAYER2)) return -10;
     else return 0;
-}
+} 
 
 bool Game::gameOver() {
     if (checkWinner(PLAYER1)) return true;
