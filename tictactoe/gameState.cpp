@@ -34,7 +34,7 @@ void Game::playGame() {
     while(!checkWinner(PLAYER1) && !checkWinner(PLAYER2) && !gameOver()) {
         if (turn%2 == 0) {
             if (numPlayers == 0) {
-                minimax(board);
+                minimax(board, PLAYER1);
                 cout << player1 << "'s turn:" << endl;
                 this_thread::sleep_for(timespan);
                 printBoard();
@@ -53,7 +53,7 @@ void Game::playGame() {
                 if (checkWinner(PLAYER2)) cout << player2 << " Wins!" << endl << endl;
                 turn++;
             } else {
-                minimax(board);
+                minimax(board, PLAYER2);
                 cout << player2 << "'s turn:" << endl;
                 this_thread::sleep_for(timespan);
                 printBoard();
@@ -120,6 +120,10 @@ char Game::xOrO(Player player, bool trueFalse) {
     return ((player == PLAYER1) ? 'X' : 'O');
 }
 
+Player Game::notPlayer(Player player) {
+    return ((player == PLAYER1) ? PLAYER2 : PLAYER1);
+}
+
 void Game::minimax(char aiBoard[3][3], Player player) {
     int bestScore = 100;
     Move aiMove;
@@ -128,7 +132,7 @@ void Game::minimax(char aiBoard[3][3], Player player) {
         for(int j=0; j<3; j++) {
             if(aiBoard[i][j] != 'X' && aiBoard[i][j] != 'O') {
                 char temp = aiBoard[i][j];      // need to keep track of what the place was
-                aiBoard[i][j] = 'O';
+                aiBoard[i][j] = xOrO(player, true);
                 int tempScore = maxScore(aiBoard);
                 if (tempScore <= bestScore) {
                     bestScore = tempScore;
@@ -151,7 +155,7 @@ int Game::maxScore(char aiBoard[3][3], Player player) {
         for(int j=0; j<3; j++) {
             if (aiBoard[i][j] != 'X' && aiBoard[i][j] != 'O') {
                 char temp = aiBoard[i][j];      // keeping track of original value
-                aiBoard[i][j] = 'X';
+                aiBoard[i][j] = xOrO(player, true);
                 int tempScore = minScore(aiBoard);
                 if (tempScore >= bestScore) {
                     bestScore = tempScore;
@@ -176,7 +180,7 @@ int Game::minScore(char aiBoard[3][3], Player player) {
         for(int j=0; j<3; j++) {
             if (aiBoard[i][j] != 'X' && aiBoard[i][j] != 'O') {
                 char temp = aiBoard[i][j];      // keeping track of original value
-                aiBoard[i][j] = 'O';
+                aiBoard[i][j] = xOrO(player, true);
                 int tempScore = maxScore(aiBoard);
                 if (tempScore <= bestScore) {
                     bestScore = tempScore;

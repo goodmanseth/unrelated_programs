@@ -27,6 +27,8 @@ class Game {
 
         char xOrO(Player player, bool trueFalse);
 
+        Player notPlayer(Player player);
+
         void minimax(char aiBoard[3][3], Player player);
 
         int maxScore(char aiBoard[3][3], Player player);
