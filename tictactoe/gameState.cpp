@@ -1,6 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <chrono>
+#include <thread>
 #include "gameState.h"
 
 using namespace std;
@@ -15,20 +17,25 @@ Game::Game() {
 
 void Game::playGame() {
     int turn = 0;
+    chrono::milliseconds timespan(1000); // 1 seconds
     printBoard();
     while(!checkWinner(HUMAN) && !checkWinner(AI) && !gameOver()) {
         if (turn%2 == 0) {
             getMove();
             printBoard();
-            if (checkWinner(HUMAN)) cout << "You Win!" << endl;
+            if (checkWinner(HUMAN)) cout << "You Win!" << endl << endl;
             turn++;
         } else {
-           minimax(board);
-           printBoard();
-           checkWinner(AI);
-           turn++;
+            minimax(board);
+            cout << "Computer's turn:" << endl;
+            this_thread::sleep_for(timespan);
+            printBoard();
+            if (checkWinner(AI)) cout << "Computer Wins!" << endl << endl;
+            turn++;
         }
     }
+    if (gameOver() && !checkWinner(AI) && checkWinner(HUMAN))
+        cout << "It's a Draw!" << endl << endl;
 }
 
 void Game::printBoard() {
