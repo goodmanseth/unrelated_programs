@@ -17,7 +17,7 @@ class Game {
         Game();
 
         void playGame();
-        
+
         void printBoard();
 
         void getMove();
@@ -27,7 +27,7 @@ class Game {
         int maxScore(char aiBoard[3][3]);
 
         int minScore(char aiBoard[3][3]);
-        
+
         int score();
 
         bool gameOver();
