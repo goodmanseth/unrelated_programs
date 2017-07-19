@@ -17,7 +17,7 @@ Game::Game() {
 
 void Game::playGame() {
     int turn = 0;
-    chrono::milliseconds timespan(1000); // 1 seconds
+    chrono::milliseconds timespan(1000); // 1 second
     printBoard();
     while(!checkWinner(HUMAN) && !checkWinner(AI) && !gameOver()) {
         if (turn%2 == 0) {
@@ -34,7 +34,7 @@ void Game::playGame() {
             turn++;
         }
     }
-    if (gameOver() && !checkWinner(AI) && checkWinner(HUMAN))
+    if (gameOver() && !checkWinner(AI) && !checkWinner(HUMAN))
         cout << "It's a Draw!" << endl << endl;
 }
 
