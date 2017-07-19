@@ -13,11 +13,21 @@ Game::Game() {
     }
 }
 
-void Game::startGame() {
+void Game::playGame() {
+    int turn = 0;
     printBoard();
     while(!checkWinner(HUMAN) && !checkWinner(AI) && !gameOver()) {
-        getMove();
-        printBoard();
+        if (turn%2 == 0) {
+            getMove();
+            printBoard();
+            if (checkWinner(HUMAN)) cout << "You Win!" << endl;
+            turn++;
+        } else {
+           minimax(board);
+           printBoard();
+           checkWinner(AI);
+           turn++;
+        }
     }
 }
 
@@ -66,6 +76,77 @@ void Game::getMove() {
             cout << "Invalid move. Please try again." << endl;
         }
     }
+}
+
+void Game::minimax(char aiBoard[3][3]) {
+    int bestScore = 100;
+    Move aiMove;
+
+    for(int i=0; i<3; i++) {
+        for(int j=0; j<3; j++) {
+            if(aiBoard[i][j] != 'X' && aiBoard[i][j] != 'O') {
+                char temp = aiBoard[i][j];      // need to keep track of what the place was
+                aiBoard[i][j] = 'O';
+                int tempScore = maxScore(aiBoard);
+                if (tempScore <= bestScore) {
+                    bestScore = tempScore;
+                    aiMove.a = i;
+                    aiMove.b = j;
+                }
+                aiBoard[i][j] = temp;           // returning to original state
+            }
+        }
+    }
+    board[aiMove.a][aiMove.b] = 'O';
+}
+
+int Game::maxScore(char aiBoard[3][3]) {
+    if (gameOver()) return score();
+    int bestScore = -1000; // arbitrary so the first move will change it
+    Move bestMove;
+
+    for(int i=0; i<3; i++) {
+        for(int j=0; j<3; j++) {
+            if (aiBoard[i][j] != 'X' && aiBoard[i][j] != 'O') {
+                char temp = aiBoard[i][j];      // keeping track of original value
+                aiBoard[i][j] = 'X';
+                int tempScore = minScore(aiBoard);
+                if (tempScore >= bestScore) {
+                    bestScore = tempScore;
+                    bestMove.a = i;
+                    bestMove.b = j;
+                }
+                aiBoard[i][j] = temp;           // returning to original value
+            }
+
+        }
+    }
+    return bestScore;
+}
+
+
+int Game::minScore(char aiBoard[3][3]) {
+    if (gameOver()) return score();
+    int bestScore = 1000; // arbitrary so the first move will change it
+    Move bestMove;
+
+    for(int i=0; i<3; i++) {
+        for(int j=0; j<3; j++) {
+            if (aiBoard[i][j] != 'X' && aiBoard[i][j] != 'O') {
+                char temp = aiBoard[i][j];      // keeping track of original value
+                aiBoard[i][j] = 'O';
+                int tempScore = maxScore(aiBoard);
+                if (tempScore <= bestScore) {
+                    bestScore = tempScore;
+                    bestMove.a = i;
+                    bestMove.b = j;
+                }
+                aiBoard[i][j] = temp;           // returning to original value
+            }
+
+        }
+    }
+    return bestScore;
 }
 
 int Game::score() {

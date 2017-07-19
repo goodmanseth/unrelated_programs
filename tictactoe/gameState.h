@@ -3,6 +3,12 @@
 using namespace std;
 enum Player {HUMAN,AI};
 
+class Move {
+    public:
+        int a;
+        int b;
+};
+
 
 class Game {
     char board[3][3];
@@ -10,17 +16,17 @@ class Game {
     public:
         Game();
 
-        void startGame();
+        void playGame();
         
         void printBoard();
 
         void getMove();
 
-//        int minimax(char aiBoard[3][3]);
+        void minimax(char aiBoard[3][3]);
 
-//        int maxSearch(char aiBoard[3][3]));
+        int maxScore(char aiBoard[3][3]);
 
-//        int minSearch(char aiBoard[3][3]);
+        int minScore(char aiBoard[3][3]);
         
         int score();
 
