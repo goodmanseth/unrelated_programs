@@ -12,6 +12,9 @@ class Move {
 
 class Game {
     char board[3][3];
+    int numPlayers;
+    string player1;
+    string player2;
 
     public:
         Game();

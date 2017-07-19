@@ -16,24 +16,37 @@ Game::Game() {
 }
 
 void Game::playGame() {
+    bool valid = false;
+
+    while(!valid) {
+        cout << "How many players (0-2)?" << endl;
+        cout << "Players: ";
+        cin >> numPlayers;
+        if (numPlayers >= 0 && numPlayers <= 2) valid = true;
+    }
+    player1 = (numPlayers == 1) ? "Human" : "Player 1";
+    player2 = (numPlayers == 1) ? "Computer" : "Player 2";
+
     int turn = 0;
     chrono::milliseconds timespan(1000); // 1 second
     printBoard();
+
     while(!checkWinner(PLAYER1) && !checkWinner(PLAYER2) && !gameOver()) {
         if (turn%2 == 0) {
             getMove(PLAYER1);
             printBoard();
-            if (checkWinner(PLAYER1)) cout << "You Win!" << endl << endl;
+            if (checkWinner(PLAYER1)) cout << player1 << " Wins!" << endl << endl;
             turn++;
         } else {
             minimax(board);
-            cout << "Computer's turn:" << endl;
+            cout << player2 << "'s turn:" << endl;
             this_thread::sleep_for(timespan);
             printBoard();
-            if (checkWinner(PLAYER2)) cout << "Computer Wins!" << endl << endl;
+            if (checkWinner(PLAYER2)) cout << player2 << " Wins!" << endl << endl;
             turn++;
         }
     }
+
     if (gameOver() && !checkWinner(PLAYER2) && !checkWinner(PLAYER1))
         cout << "It's a Draw!" << endl << endl;
 }
@@ -41,7 +54,7 @@ void Game::playGame() {
 void Game::printBoard() {
     cout << flush;
     cout << "\n\nTic Tac Toe\n\n";
-    cout << "Human (X) - Computer (O)" << endl << endl;
+    cout << player1 << " (X) - " << player2 << " (O)" << endl << endl;
     cout << endl;
 
     cout << "     |     |     " << endl;
