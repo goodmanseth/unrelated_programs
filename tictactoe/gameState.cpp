@@ -68,6 +68,25 @@ void Game::getMove() {
     }
 }
 
+int Game::score() {
+    if (checkWinner(HUMAN)) return 10;
+    else if (checkWinner(AI)) return -10;
+    else return 0;
+}
+
+void Game::gameOver() {
+    if (checkWinner(HUMAN)) return true;
+    else if (checkWinner(AI)) return true;
+
+    for(int i=0; i<3; i++) {
+        for(int j=0; j<3; j++) {
+            if (board[i][j] == 'X' || board[i][j] == 'O') continue;
+            else return false;
+        }
+    }
+    return true;
+}
+
 bool Game::checkWinner(Player player) {
     char XO;
     if (player == HUMAN) XO = 'X';

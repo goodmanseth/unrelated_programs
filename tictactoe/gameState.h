@@ -22,9 +22,9 @@ class Game {
 
 //        int minSearch(char aiBoard[3][3]);
         
-//        int score();
+        int score();
 
-//        bool gameOver();
+        bool gameOver();
 
         bool checkWinner(Player player);
 
