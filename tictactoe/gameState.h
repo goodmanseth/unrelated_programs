@@ -16,7 +16,7 @@ class Game {
 
         void getMove();
 
-//        Move minimax(char aiBoard[3][3]);
+//        int minimax(char aiBoard[3][3]);
 
 //        int maxSearch(char aiBoard[3][3]));
 
