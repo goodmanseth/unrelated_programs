@@ -19,22 +19,22 @@ void Game::playGame() {
     int turn = 0;
     chrono::milliseconds timespan(1000); // 1 second
     printBoard();
-    while(!checkWinner(HUMAN) && !checkWinner(AI) && !gameOver()) {
+    while(!checkWinner(PLAYER1) && !checkWinner(PLAYER2) && !gameOver()) {
         if (turn%2 == 0) {
-            getMove();
+            getMove(PLAYER1);
             printBoard();
-            if (checkWinner(HUMAN)) cout << "You Win!" << endl << endl;
+            if (checkWinner(PLAYER1)) cout << "You Win!" << endl << endl;
             turn++;
         } else {
             minimax(board);
             cout << "Computer's turn:" << endl;
             this_thread::sleep_for(timespan);
             printBoard();
-            if (checkWinner(AI)) cout << "Computer Wins!" << endl << endl;
+            if (checkWinner(PLAYER2)) cout << "Computer Wins!" << endl << endl;
             turn++;
         }
     }
-    if (gameOver() && !checkWinner(AI) && !checkWinner(HUMAN))
+    if (gameOver() && !checkWinner(PLAYER2) && !checkWinner(PLAYER1))
         cout << "It's a Draw!" << endl << endl;
 }
 
@@ -59,7 +59,7 @@ void Game::printBoard() {
     cout << "     |     |     " << endl << endl;
 }
 
-void Game::getMove() {
+void Game::getMove(Player player) {
     bool valid = false;
     cout << "Please enter the number corresponding to a location on the board." << endl;
     string move;
@@ -74,7 +74,7 @@ void Game::getMove() {
             for(int j=0; j<3; j++) {
                 if (board[i][j] == move[0]) {
                     valid = true;
-                    board[i][j] = 'X';
+                    board[i][j] = xOrO(player, true);
                     break;
                 }
             }
@@ -83,6 +83,12 @@ void Game::getMove() {
             cout << "Invalid move. Please try again." << endl;
         }
     }
+}
+
+char Game::xOrO(Player player, bool trueFalse) {
+    if (!trueFalse)
+        return ((player == PLAYER1) ? 'O' : 'X');
+    return ((player == PLAYER1) ? 'X' : 'O');
 }
 
 void Game::minimax(char aiBoard[3][3]) {
@@ -157,14 +163,14 @@ int Game::minScore(char aiBoard[3][3]) {
 }
 
 int Game::score() {
-    if (checkWinner(HUMAN)) return 10;
-    else if (checkWinner(AI)) return -10;
+    if (checkWinner(PLAYER1)) return 10;
+    else if (checkWinner(PLAYER2)) return -10;
     else return 0;
 }
 
 bool Game::gameOver() {
-    if (checkWinner(HUMAN)) return true;
-    else if (checkWinner(AI)) return true;
+    if (checkWinner(PLAYER1)) return true;
+    else if (checkWinner(PLAYER2)) return true;
 
     for(int i=0; i<3; i++) {
         for(int j=0; j<3; j++) {
@@ -177,7 +183,7 @@ bool Game::gameOver() {
 
 bool Game::checkWinner(Player player) {
     char XO;
-    if (player == HUMAN) XO = 'X';
+    if (player == PLAYER1) XO = 'X';
     else XO = 'O';
 
     // checking across and vertical

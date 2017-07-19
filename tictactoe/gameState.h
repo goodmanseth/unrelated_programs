@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-enum Player {HUMAN,AI};
+enum Player {PLAYER1,PLAYER2};
 
 class Move {
     public:
@@ -20,7 +20,9 @@ class Game {
 
         void printBoard();
 
-        void getMove();
+        void getMove(Player player);
+
+        char xOrO(Player player, bool trueFalse);
 
         void minimax(char aiBoard[3][3]);
 
