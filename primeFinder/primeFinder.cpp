@@ -7,7 +7,7 @@ using namespace std;
 bool isPrime(unsigned long long);
 
 int main(int argc, char **argv) {
-    if (argc == 3) {
+    if (argc > 3) {
         cout << "Incorrect number of input statements. Try again." << endl;
         return -1;
     }
