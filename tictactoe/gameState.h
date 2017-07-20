@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-enum Player {PLAYER1,PLAYER2};
+enum Player {HUMAN,AI};
 
 class Move {
     public:
@@ -9,32 +9,24 @@ class Move {
         int b;
 };
 
-
 class Game {
     char board[3][3];
-    int numPlayers;
-    string player1;
-    string player2;
 
     public:
         Game();
 
         void playGame();
-
+        
         void printBoard();
 
-        void getMove(Player player);
+        void getMove();
 
-        char xOrO(Player player, bool trueFalse);
+        void minimax(char aiBoard[3][3]);
 
-        Player notPlayer(Player player);
+        int maxScore(char aiBoard[3][3]);
 
-        void minimax(char aiBoard[3][3], Player player);
-
-        int maxScore(char aiBoard[3][3], Player player);
-
-        int minScore(char aiBoard[3][3], Player player);
-
+        int minScore(char aiBoard[3][3]);
+        
         int score();
 
         bool gameOver();
