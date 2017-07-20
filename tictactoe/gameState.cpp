@@ -125,7 +125,7 @@ Player Game::notPlayer(Player player) {
 }
 
 void Game::minimax(char aiBoard[3][3], Player player) {
-    int bestScore = 100;
+    int bestScore = (player == PLAYER2) ? 100 : -100;
     Move aiMove;
 
     for(int i=0; i<3; i++) {
@@ -133,8 +133,14 @@ void Game::minimax(char aiBoard[3][3], Player player) {
             if(aiBoard[i][j] != 'X' && aiBoard[i][j] != 'O') {
                 char temp = aiBoard[i][j];      // need to keep track of what the place was
                 aiBoard[i][j] = xOrO(player, true);
-                int tempScore = maxScore(aiBoard, notPlayer(player));
-                if (tempScore <= bestScore) {
+                int tempScore = (player == PLAYER1)
+                    ? minScore(aiBoard, notPlayer(player))
+                    : maxScore(aiBoard, notPlayer(player));
+                if (player == PLAYER2 && tempScore <= bestScore) {
+                    bestScore = tempScore;
+                    aiMove.a = i;
+                    aiMove.b = j;
+                } else if (player == PLAYER1 && tempScore >= bestScore) {
                     bestScore = tempScore;
                     aiMove.a = i;
                     aiMove.b = j;
@@ -199,7 +205,7 @@ int Game::score() {
     if (checkWinner(PLAYER1)) return 10;
     else if (checkWinner(PLAYER2)) return -10;
     else return 0;
-} 
+}
 
 bool Game::gameOver() {
     if (checkWinner(PLAYER1)) return true;
